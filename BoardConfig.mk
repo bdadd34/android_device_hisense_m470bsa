@@ -21,16 +21,21 @@
 #
 # DoPa (2014/02/11) - a fusion of grouper's & randomblame's TakTik BoardConfig.mk
 #                     with various mods
+LOCAL_PATH := device/hisense/m470
 
-TARGET_BOARD_PLATFORM := tegra
+TARGET_BOARD_PLATFORM := tegra3
 TARGET_TEGRA_VERSION := t30
-
+TARGET_CPU_VARIANT := generic
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a9
+TARGET_USE_O3 := true
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
+TARGET_BOOTLOADER_BOARD_NAME := enterprise
 NEED_WORKAROUND_CORTEX_A9_745320 := true
 
 # Image info
@@ -39,18 +44,25 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 681574400
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 6567231488
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-# Bootloader & Kernel
-TARGET_NO_BOOTLOADER := true
-TARGET_PREBUILT_KERNEL := device/hisense/m470/prebuilt/kernel/kernel
+# Skip droiddoc build to save build time
+BOARD_SKIP_ANDROID_DOC_BUILD := true
+
+# TARGET_PREBUILT_KERNEL := device/hisense/m470/prebuilt/kernel/kernel
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
+TARGET_KERNEL_SOURCE := kernel/hisense/m470
+TARGET_KERNEL_CONFIG := m470_v2_dopa1_defconfig
 
 BOARD_HAL_STATIC_LIBRARIES := \
     libdumpstate.m470 \
     libhealthd.m470
 
 # Audio
+USE_PROPRIETARY_AUDIO_EXTENSIONS := true
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
+BOARD_USES_TINY_AUDIO_HW := false
+BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
+COMMON_GLOBAL_CFLAGS += -DHTC_TEGRA_AUDIO
 
 # BT
 BOARD_HAVE_BLUETOOTH := true
