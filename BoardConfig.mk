@@ -44,14 +44,18 @@ TARGET_NO_BOOTLOADER := true
 TARGET_PREBUILT_KERNEL := device/hisense/m470/prebuilt/kernel/kernel
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+
 BOARD_HAL_STATIC_LIBRARIES := \
     libdumpstate.m470 \
     libhealthd.m470
 
 # Audio
+USE_PROPRIETARY_AUDIO_EXTENSIONS := true
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
-
+BOARD_USES_TINY_AUDIO_HW := true
+BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 # BT
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -105,3 +109,4 @@ BOARD_SEPOLICY_UNION += \
         surfaceflinger.te \
         system.te \
         zygote.te
+
